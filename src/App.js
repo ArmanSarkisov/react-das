@@ -69,8 +69,9 @@ class App extends React.Component { // statefull component talisa comp in talisa
 
     return (
       // ete menq senc attr enq poxancum ira arjeqe linuma true mijev et false a linum
-      <Container fluid >
-        <Header onToggleHandler={this.handelOnToggle} />
+      <>
+      <Header onToggleHandler={this.handelOnToggle} />
+      <div>
         <Row>
           {this.state.isSideBarVisiable && (
             <Col md="3">
@@ -81,8 +82,12 @@ class App extends React.Component { // statefull component talisa comp in talisa
             <Content />
           </Col>
         </Row>
-
-        <Footer />
+      </div>
+      </>
+    )
+  }
+}
+ {/* <Footer /> */}
 
         {/* <p>{this.state.country}</p>
         <button onClick={this.handleOnChangeCountry}>poxel</button> */}
@@ -91,9 +96,4 @@ class App extends React.Component { // statefull component talisa comp in talisa
         </React.Fragment>  poxarinuma kornevoy divin */}
         {/* <p>hello {this.state.country}</p>
         <button onClick={this.handleOnChangeCountry}>change text</button> */}
-      </Container>
-    )
-  }
-}
-
 export default App;

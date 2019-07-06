@@ -1,11 +1,13 @@
 import React from 'react';
 import s from './Sidebar.module.css'
 
+import SideNav from './sideNav/SideNav'
+
 const Sidebar = (props) => {
     return (
-        <div className={s.sideBar}>
-            <h2>sidebar</h2>
-        </div>
+        <aside className={s.sideBar}>
+            <SideNav />
+        </aside>
     )
 }
 
