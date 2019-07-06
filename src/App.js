@@ -1,16 +1,16 @@
 import React from 'react';
 
 import './App.css';
-import Header from './components/Header';
-import Content from './components/Content';
-import Sidebar from './components/Sidebar';
-import Footer from './components/Footer';
+import Header from './components/header/Header';
+import Content from './components/content/Content';
+import Sidebar from './components/sidebar/Sidebar';
+import Footer from './components/footer/Footer';
 
 // ******tnayine toggle ov havagel header home about contact
 // **** sidebar footer + content
 class App extends React.Component { // statefull component talisa comp in talisa obj prop state vori skzbnakan arjeqe nulla 
   state = {
-    country: "armenia",
+    country: "Armenia",
   }
   
   // lyfecycles method-nere graca takic updatinginna u console a arac ira hetakanutyune nayelu hamar
@@ -22,8 +22,13 @@ class App extends React.Component { // statefull component talisa comp in talisa
 
 
   handleOnChangeCountry() {
-    this.setState({country: "USA"})
+    if (this.state.country == "Armenia") {
+      this.setState({country: "USA"});
+    } else {
+      this.setState({country: "Armenia"});
+    }
   }
+
   // componentDidMount() { // argument chi stanum
   //   console.log("componentDidMount");
   // }
@@ -48,11 +53,17 @@ class App extends React.Component { // statefull component talisa comp in talisa
     // updateing methods -> dom-um update a anum
     // unmounting methods -> Dom-ic tanuma virtal dom kam domic hanuma
     // console.log("render");
+  console.log(this.state);
+
     return (
       <>
+        <p>{this.state.country}</p>
+        <button onClick={this.handleOnChangeCountry}>poxel</button>
         <Header />
-        <Sidebar />
-        <Content />
+        <div className="content_sidebar">
+          <Sidebar />
+          <Content />
+        </div>
         <Footer />
 
 
