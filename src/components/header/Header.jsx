@@ -1,14 +1,13 @@
 import React from 'react';
 import s from './Header.module.css'
+import { Button } from 'reactstrap';
 
 const Header = (props) => {
     return (
         <header className={s.header}>
-            <div className={s.container}>
-                <div className={s.bar1}></div>
-                <div className={s.bar2}></div>
-                <div className={s.bar3}></div>
-            </div>
+            <Button onClick={props.onToggleHandler} type="button" color="primary">
+                burger
+            </Button>
             <nav className={s.navigation}>
                 <ul>
                     <li><a href="#">home</a></li>
