@@ -17,7 +17,6 @@ class App extends React.Component { // statefull component talisa comp in talisa
   state = {
     // country: "Armenia",
     isSideBarVisiable: false,
-
   }
 
   // lyfecycles method-nere graca takic updatinginna u console a arac ira hetakanutyune nayelu hamar
@@ -30,9 +29,8 @@ class App extends React.Component { // statefull component talisa comp in talisa
 
 
   handelOnToggle() {
-    this.setState({ isSideBarVisiable: !this.state.isSideBarVisiable });
+    this.setState({ isSideBarVisiable: !this.state.isSideBarVisiable});
   }
-
   // handleOnChangeCountry() {
   //   if (this.state.country === "Armenia") {
   //     this.setState({country: "USA"});
@@ -59,7 +57,6 @@ class App extends React.Component { // statefull component talisa comp in talisa
 
 
 
-
   render() { // cnox klassi method virtual domic tvyal vercnele mountinga anune
     // mounting methods -> virtual domic mtnuma dom
     // updateing methods -> dom-um update a anum
@@ -73,21 +70,30 @@ class App extends React.Component { // statefull component talisa comp in talisa
       <Header onToggleHandler={this.handelOnToggle} />
       <div>
         <Row>
+          
           {this.state.isSideBarVisiable && (
             <Col md="3">
               <Sidebar />
             </Col>
+          ) || (
+            <Col md="1">
+              <Sidebar/>
+            </Col>
           )}
-          <Col md={this.state.isSideBarVisiable ? 9 : 12}>
+          <Row>
+          <Col md={this.state.isSideBarVisiable ? 9 : 11}>
             <Content />
           </Col>
+          <Col md={this.state.isSideBarVisiable ? 9 : 11}>
+            <Footer />
+          </Col>
+          </Row>
         </Row>
       </div>
       </>
     )
   }
 }
- {/* <Footer /> */}
 
         {/* <p>{this.state.country}</p>
         <button onClick={this.handleOnChangeCountry}>poxel</button> */}
