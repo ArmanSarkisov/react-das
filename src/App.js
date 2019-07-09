@@ -1,11 +1,15 @@
 import React from 'react';
 
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 
 import Header from './components/header/Header';
 import Content from './components/content/Content';
 import Sidebar from './components/sidebar/Sidebar';
 import Footer from './components/footer/Footer';
+import Contact from './components/contact/Contact';
+import About from './components/about/About';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -29,7 +33,7 @@ class App extends React.Component { // statefull component talisa comp in talisa
 
 
   handelOnToggle() {
-    this.setState({ isSideBarVisiable: !this.state.isSideBarVisiable});
+    this.setState({ isSideBarVisiable: !this.state.isSideBarVisiable });
   }
   // handleOnChangeCountry() {
   //   if (this.state.country === "Armenia") {
@@ -66,40 +70,42 @@ class App extends React.Component { // statefull component talisa comp in talisa
 
     return (
       // ete menq senc attr enq poxancum ira arjeqe linuma true mijev et false a linum
-      <>
-      <Header onToggleHandler={this.handelOnToggle} />
-      <div>
-        <Row>
-          
-          {this.state.isSideBarVisiable && (
-            <Col md="3">
-              <Sidebar />
-            </Col>
-          ) || (
-            <Col md="1">
-              <Sidebar/>
-            </Col>
-          )}
+      <BrowserRouter>
+        <Header onToggleHandler={this.handelOnToggle} />
+        <div>
           <Row>
-          <Col md={this.state.isSideBarVisiable ? 9 : 11}>
-            <Content />
-          </Col>
-          <Col md={this.state.isSideBarVisiable ? 9 : 11}>
-            <Footer />
-          </Col>
+            {this.state.isSideBarVisiable && (
+              <Col md="3">
+                <Sidebar />
+              </Col>
+            ) || (
+                <Col md="1">
+                  <Sidebar />
+                </Col>
+              )}
+            <Row>
+              <Col md={this.state.isSideBarVisiable ? 9 : 11}>
+                <Route component={Contact} path="/contact" />
+                <Route component={About} path="/about" />
+                <Route exact component={Content} path="/content" />
+                <Redirect from="*" to="/content" />
+              </Col>
+              <Col md={this.state.isSideBarVisiable ? 9 : 11}>
+                <Footer />
+              </Col>
+            </Row>
           </Row>
-        </Row>
-      </div>
-      </>
+        </div>
+      </BrowserRouter>
     )
   }
 }
 
-        {/* <p>{this.state.country}</p>
+{/* <p>{this.state.country}</p>
         <button onClick={this.handleOnChangeCountry}>poxel</button> */}
-        {/* <React.Fragment>
+{/* <React.Fragment>
 
         </React.Fragment>  poxarinuma kornevoy divin */}
-        {/* <p>hello {this.state.country}</p>
+{/* <p>hello {this.state.country}</p>
         <button onClick={this.handleOnChangeCountry}>change text</button> */}
 export default App;

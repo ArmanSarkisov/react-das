@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Header.module.css'
 import { Button } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 const Header = (props) => {
     return (
@@ -21,9 +22,9 @@ const Header = (props) => {
                     <Col md="11">
                         <nav className={s.navigation}>
                             <ul>
-                                <li><a href="#">home</a></li>
-                                <li><a href="#">about</a></li>
-                                <li><a href="#">sevices</a></li>
+                                <li><NavLink to="/content">home</NavLink></li>
+                                <li><NavLink to="/about">About</NavLink></li>
+                                <li><NavLink to="/contact">contact</NavLink></li>
                             </ul>
                         </nav>
                     </Col>

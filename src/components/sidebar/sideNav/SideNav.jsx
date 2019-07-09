@@ -22,7 +22,7 @@ class SideNav extends React.Component {
     render() {
         return (
             <>
-                <Dropdown group isOpen={this.state.dropdownOpen} size="lg" toggle={this.toggle}>
+                <Dropdown group isOpen={this.state.dropdownOpen}  toggle={this.toggle}>
                     <DropdownToggle caret>
                         Models
                     </DropdownToggle>
