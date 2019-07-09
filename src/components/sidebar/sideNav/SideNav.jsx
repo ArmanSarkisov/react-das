@@ -15,11 +15,10 @@ class SideNav extends React.Component {
 
     toggle() {
         this.setState(prevState => ({
-          dropdownOpen: !prevState.dropdownOpen
+            dropdownOpen: !prevState.dropdownOpen,
         }));
-      }
+    }
 
-      
     render() {
         return (
             <>
@@ -34,7 +33,7 @@ class SideNav extends React.Component {
                         <DropdownItem>4 serises</DropdownItem>
                         <DropdownItem>5 serises</DropdownItem>
                         <DropdownItem>6 serises</DropdownItem>
-                        <DropdownItem divider/>
+                        <DropdownItem divider />
                         <DropdownItem disabled>MB</DropdownItem>
                         <DropdownItem>a class</DropdownItem>
                         <DropdownItem>c class</DropdownItem>
@@ -50,9 +49,9 @@ class SideNav extends React.Component {
                     <DropdownMenu>
                         ...
                     </DropdownMenu>
-                </Dropdown>
+                </Dropdown> */}
 
-                <Dropdown group isOpen={this.state.dropdownOpen} size="lg" toggle={this.toggle}>
+                {/* <Dropdown group isOpen={this.state.dropdownOpen} size="lg" toggle={this.toggle}>
                     <DropdownToggle caret>
                         Dropdown
                     </DropdownToggle>
