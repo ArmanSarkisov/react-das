@@ -22,9 +22,9 @@ const Header = (props) => {
                     <Col md="11">
                         <nav className={s.navigation}>
                             <ul>
-                                <li><NavLink to="/content">home</NavLink></li>
-                                <li><NavLink to="/about">About</NavLink></li>
-                                <li><NavLink to="/contact">contact</NavLink></li>
+                                <li><NavLink to="/content" activeClassName="active">home</NavLink></li>
+                                <li><NavLink to="/about" activeClassName="active">About</NavLink></li>
+                                <li><NavLink to="/contact" activeClassName="active">contact</NavLink></li>
                             </ul>
                         </nav>
                     </Col>

@@ -3,9 +3,9 @@ import s from './Contact.module.css';
 
 const About = (props) => {
     return(
-        <main className={s.main}>
-            <h2>main</h2>
-        </main>
+        <div className={s.main}>
+            <h2>contact</h2>
+        </div>
     )
 }
 

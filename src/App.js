@@ -11,6 +11,11 @@ import Footer from './components/footer/Footer';
 import Contact from './components/contact/Contact';
 import About from './components/about/About';
 
+
+import withMobileSize from './withMobileSize';
+
+import Wev from './components/Versions/Web'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -67,35 +72,11 @@ class App extends React.Component { // statefull component talisa comp in talisa
     // unmounting methods -> Dom-ic tanuma virtal dom kam domic hanuma
     // console.log("render");
     // console.log(this.state);
-
+    console.log(this.props)
     return (
       // ete menq senc attr enq poxancum ira arjeqe linuma true mijev et false a linum
       <BrowserRouter>
-        <Header onToggleHandler={this.handelOnToggle} />
-        <div>
-          <Row>
-            {this.state.isSideBarVisiable && (
-              <Col md="3">
-                <Sidebar />
-              </Col>
-            ) || (
-                <Col md="1">
-                  <Sidebar />
-                </Col>
-              )}
-            <Row>
-              <Col md={this.state.isSideBarVisiable ? 9 : 11}>
-                <Route component={Contact} path="/contact" />
-                <Route component={About} path="/about" />
-                <Route exact component={Content} path="/content" />
-                <Redirect from="*" to="/content" />
-              </Col>
-              <Col md={this.state.isSideBarVisiable ? 9 : 11}>
-                <Footer />
-              </Col>
-            </Row>
-          </Row>
-        </div>
+        
       </BrowserRouter>
     )
   }
@@ -108,4 +89,4 @@ class App extends React.Component { // statefull component talisa comp in talisa
         </React.Fragment>  poxarinuma kornevoy divin */}
 {/* <p>hello {this.state.country}</p>
         <button onClick={this.handleOnChangeCountry}>change text</button> */}
-export default App;
+export default withMobileSize(App);
