@@ -1,34 +1,37 @@
 import React from 'react';
 
-function widthMobileSize(Component) {
+function withMobileSize(Component) {
     return class extends React.Component {
         state = {
-            width:  window.innerWidth,
+            width: window.innerWidth,
             height: window.innerHeight
         }
+
         constructor(props) {
             super(props);
-            this.handleWindowResize = this.handleWindowResize.bind(this);
+            this.handleWidowResize = this.handleWidowResize.bind(this);
         }
+
         componentDidMount() {
-            window.addEventListener('resize', this.handleWindowResize);
+            window.addEventListener('resize', this.handleWidowResize, false)
         }
+
         componentWillUnmount() {
-            window.removeEventListener('resize', this.handleWindowResize);
+            window.removeEventListener('resize', this.handleWidowResize);
         }
-        handleWindowResize() {
+
+        handleWidowResize() {
             this.setState({
                 width: window.innerWidth,
                 height: window.innerHeight
             })
         }
         render() {
-            console.log(this.state);
             return (
-                <Component  {...this.props} {...this.state}/>
+                <Component {...this.props} {...this.state} />
             )
         }
     }
 }
 
-export default widthMobileSize;
+export default withMobileSize;

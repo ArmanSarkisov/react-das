@@ -10,9 +10,6 @@ const Header = (props) => {
             <Container fluid>
                 <Row className={s.header_row}  >
                     <Col md="1">
-                        {/* <Button onClick={props.onToggleHandler} type="button" color="primary">
-                            burger
-                        </Button> */}
                         <div onClick={props.onToggleHandler} className={s.burger_container}>
                             <div className={s.bar1}></div>
                             <div className={s.bar2}></div>
