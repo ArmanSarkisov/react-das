@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import s from './Content.module.css'
+import React  from 'react';
 
 const Content = (props) => {
     // const [count, setCount] = useState(0);

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import s from './About.module.css';
 
 const Contact = (props) => {
 

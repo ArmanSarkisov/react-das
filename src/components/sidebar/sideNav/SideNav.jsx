@@ -1,5 +1,4 @@
 import React from 'react';
-import s from './SideNav.module.css';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 class SideNav extends React.Component {
@@ -22,7 +21,7 @@ class SideNav extends React.Component {
     render() {
         return (
             <>
-                <Dropdown group isOpen={this.state.dropdownOpen}  toggle={this.toggle}>
+                <Dropdown group isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                     <DropdownToggle caret>
                         Models
                     </DropdownToggle>

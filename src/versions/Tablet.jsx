@@ -22,17 +22,17 @@ function Tablet(props) {
             <Header onToggleHandler={props.handleOnToggle} />
             <Row>
                 {
-                    props.isVisible && (
-                        <Col md="4">
+                    props.isVisible ? (
+                        <Col sm="4">
                             <SideBar />
                         </Col>
-                    ) || (
-                        <Col md="2">
+                    ) : (
+                        <Col sm="2">
                             <SideBar />
                         </Col>
                     )
                 }
-                <Col md={props.isVisible ? 8 : 10}>
+                <Col sm={props.isVisible ? 8 : 10}>
                     <Switch>
                         <Content>
                             <Route exact component={Content}  path="/" />

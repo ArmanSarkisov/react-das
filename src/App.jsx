@@ -12,6 +12,8 @@ import withMobileSize from './withMobileSize';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import Registration from './pages/registration/Registration';
+
 class App extends React.Component {
   state = {
     isVisible: false
@@ -27,13 +29,15 @@ class App extends React.Component {
   }
 
   render() {
-    return (
+    return localStorage.getItem("user") ? (
       <Router>
-		{this.props.width >= 992 && <Web handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
-		{this.props.width >= 515 && this.props.width <= 992 && <Tablet handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
-		{this.props.width >= 320 && this.props.width <= 515 && <Mobile handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
+        {this.props.width >= 992 && <Web handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
+        {this.props.width >= 515 && this.props.width < 992 && <Tablet handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
+        {this.props.width >= 0 && this.props.width < 515 && <Mobile handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
       </Router>
-    );
+    ) : (
+      <Registration />
+    )
   }
 }
 

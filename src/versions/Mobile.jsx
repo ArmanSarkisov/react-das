@@ -22,12 +22,12 @@ function Mobile(props) {
             <Row>
                 {
                     props.isVisible && (
-                        <Col md="6">
+                        <Col xs="6">
                             <SideBar />
                         </Col>
                     )
                 }
-                <Col md={props.isVisible ? 6 : 12}>
+                <Col xs={props.isVisible ? 6 : 12}>
                     <Switch>
                         <Content>
                             <Route exact component={Content}  path="/" />

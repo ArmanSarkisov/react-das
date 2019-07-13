@@ -20,11 +20,11 @@ function Web(props) {
             <Header onToggleHandler={props.handleOnToggle} />
             <Row>
                 {
-                    props.isVisible && (
+                    props.isVisible ? (
                         <Col md="3">
                             <SideBar />
                         </Col>
-                    ) || (
+                    ) : (
                         <Col md="1">
                             <SideBar />
                         </Col>
