@@ -1,8 +1,6 @@
 import React from 'react';
 import {
     Switch,
-    Route,
-    Redirect
 } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 
@@ -11,8 +9,8 @@ import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
 import Content from '../components/content/Content';
 import SideBar from '../components/sidebar/Sidebar';
-import Contact from '../components/contact/Contact';
-import About from '../components/about/About';
+// import Contact from '../components/contact/Contact';
+// import About from '../components/about/About';
 
 function Web(props) {
     return (

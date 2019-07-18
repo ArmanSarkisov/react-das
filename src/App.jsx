@@ -5,15 +5,15 @@ import {
 
 import Web from './versions/Web';
 import Tablet from './versions/Tablet';
-import Mobile from './versions/Mobile';
+// import Mobile from './versions/Mobile';
 
 import Register from './pages/registration/Registration';
 import Login from './pages/login/Login';
 
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
+// import Header from './components/header/Header';
+// import Footer from './components/footer/Footer';
 import Content from './components/content/Content';
-import SideBar from './components/sidebar/Sidebar';
+// import SideBar from './components/sidebar/Sidebar';
 import Contact from './components/contact/Contact';
 import About from './components/about/About';
 
@@ -22,7 +22,7 @@ import withMobileSize from './withMobileSize';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-import Registration from './pages/registration/Registration';
+// import Registration from './pages/registration/Registration';
 
 class App extends React.Component {
   state = {
