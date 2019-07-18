@@ -25,18 +25,15 @@ function Web(props) {
                             <SideBar />
                         </Col>
                     ) : (
-                        <Col md="1">
-                            <SideBar />
-                        </Col>
-                    )
+                            <Col md="1">
+                                <SideBar />
+                            </Col>
+                        )
                 }
                 <Col md={props.isVisible ? 9 : 11}>
                     <Switch>
                         <Content>
-                            <Route exact component={Content} path="/" />
-                            <Route component={About} path="/about" />
-                            <Route component={Contact} path="/contact" />
-                            <Redirect from="*" to="/" />
+                            {props.children}
                         </Content>
                     </Switch>
                     <Footer />

@@ -1,11 +1,21 @@
 import React from 'react';
 import {
-  BrowserRouter as Router
+  BrowserRouter as Router, Switch, Route, Redirect
 } from 'react-router-dom';
 
 import Web from './versions/Web';
 import Tablet from './versions/Tablet';
 import Mobile from './versions/Mobile';
+
+import Register from './pages/registration/Registration';
+import Login from './pages/login/Login';
+
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+import Content from './components/content/Content';
+import SideBar from './components/sidebar/Sidebar';
+import Contact from './components/contact/Contact';
+import About from './components/about/About';
 
 import withMobileSize from './withMobileSize';
 
@@ -29,16 +39,45 @@ class App extends React.Component {
   }
 
   render() {
-    return localStorage.getItem("user") ? (
+    return localStorage.getItem('user') ? (
       <Router>
-        {this.props.width >= 992 && <Web handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
-        {this.props.width >= 515 && this.props.width < 992 && <Tablet handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
-        {this.props.width >= 0 && this.props.width < 515 && <Mobile handleOnToggle={this.handleOnToggle} isVisible={this.state.isVisible} />}
+        {
+          this.props.width >= 992 && (
+            <Web
+              handleOnToggle={this.handleOnToggle}
+              isVisible={this.state.isVisible}
+            >
+              <Switch>
+                <Route exact component={Content} path="/" />
+                <Route component={About} path="/about" />
+                <Route component={Contact} path="/contact" />
+                <Redirect from="*" to="/" />
+              </Switch>
+            </Web>
+          )
+        }
+        {
+          this.props.width < 992 && this.props.width >= 515 && (
+            <Tablet/>
+          )
+        }
       </Router>
     ) : (
-      <Registration />
-    )
+        <Router>
+          <Web
+            handleOnToggle={this.handleOnToggle}
+            isVisible={this.state.isVisible}
+          >
+            <Switch>
+              <Route exact component={Login} path="/login" />
+              <Route component={Register} path="/register" />
+              <Redirect from="*" to="/login" />
+            </Switch>
+          </Web>
+        </Router>
+      )
   }
+  
 }
 
 export default withMobileSize(App);
