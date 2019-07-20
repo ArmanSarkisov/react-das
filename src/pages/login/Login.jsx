@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Col, Row, Form, FormGroup, Input, Label, Button } from 'reactstrap';
 
 
+
 class Login extends Component {
     state = {
         email: '',
@@ -25,9 +26,18 @@ class Login extends Component {
             [e.target.name]: e.target.value
         })
     }
-    
+
     handleOnSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
+        const { email, password } = this.state;
+        const { history } = this.props;
+        let x = localStorage.getItem("users");
+        let y = JSON.parse(x)
+        console.log(y[0].email);
+        
+        if (email === y[0].email && password === y[0].password) {
+            history.push('/');
+        }
     }
 
     render() {
