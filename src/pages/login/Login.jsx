@@ -29,15 +29,6 @@ class Login extends Component {
 
     handleOnSubmit(e) {
         e.preventDefault();
-        const { email, password } = this.state;
-        const { history } = this.props;
-        let x = localStorage.getItem("users");
-        let y = JSON.parse(x)
-        console.log(y[0].email);
-        
-        if (email === y[0].email && password === y[0].password) {
-            history.push('/');
-        }
     }
 
     render() {

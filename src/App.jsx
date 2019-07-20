@@ -39,7 +39,7 @@ class App extends React.Component {
   }
 
   render() {
-    return localStorage.getItem('users') ? (
+    return localStorage.getItem('user') ? (
       <Router>
         {
           this.props.width >= 992 && (
