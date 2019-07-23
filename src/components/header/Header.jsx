@@ -1,15 +1,15 @@
 import React from 'react';
 import s from './Header.module.css'
 import { Container, Row, Col, Button } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 const Header = (props) => {
     function handleLogout(e) {
         e.preventDefault();
+        const { history } = props;
         localStorage.removeItem('user');
-        window.location.replace('/login');
+        history.replace('/login');
       }
-    
-    console.log(props);
+      
     return (
         <header className={s.header}>
             <Container fluid>
@@ -44,4 +44,4 @@ const Header = (props) => {
 }
 
 
-export default Header;
+export default withRouter(Header);
