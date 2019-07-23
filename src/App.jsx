@@ -4,25 +4,22 @@ import {
 } from 'react-router-dom';
 
 import Web from './versions/Web';
-import Tablet from './versions/Tablet';
+// import Tablet from './versions/Tablet';
 // import Mobile from './versions/Mobile';
 
-import Register from './pages/registration/Registration';
+import Registration from './pages/registration/Registration';
 import Login from './pages/login/Login';
 
-// import Header from './components/header/Header';
-// import Footer from './components/footer/Footer';
 import Content from './components/content/Content';
-// import SideBar from './components/sidebar/Sidebar';
 import Contact from './components/contact/Contact';
 import About from './components/about/About';
 
 import withMobileSize from './withMobileSize';
+import PrivateRoute from './PrivateRoute';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-// import Registration from './pages/registration/Registration';
 
 class App extends React.Component {
   state = {
@@ -39,7 +36,7 @@ class App extends React.Component {
   }
 
   render() {
-    return localStorage.getItem('user') ? (
+    return (
       <Router>
         {
           this.props.width >= 992 && (
@@ -48,9 +45,12 @@ class App extends React.Component {
               isVisible={this.state.isVisible}
             >
               <Switch>
-                <Route exact component={Content} path="/" />
-                <Route component={About} path="/about" />
-                <Route component={Contact} path="/contact" />
+                <Route component={Login} path="/login" />
+                <Route component={Registration} path="/register" />
+
+                <PrivateRoute exact component={Content} path="/" />
+                <PrivateRoute component={About} path="/about" />
+                <PrivateRoute component={Contact} path="/contact" />
                 <Redirect from="*" to="/" />
               </Switch>
             </Web>
@@ -58,26 +58,15 @@ class App extends React.Component {
         }
         {
           this.props.width < 992 && this.props.width >= 515 && (
-            <Tablet/>
+            <div>
+              tablet version
+            </div>
           )
         }
       </Router>
-    ) : (
-        <Router>
-          <Web
-            handleOnToggle={this.handleOnToggle}
-            isVisible={this.state.isVisible}
-          >
-            <Switch>
-              <Route exact component={Login} path="/login" />
-              <Route component={Register} path="/register" />
-              <Redirect from="*" to="/login" />
-            </Switch>
-          </Web>
-        </Router>
-      )
+    )
   }
-  
+
 }
 
 export default withMobileSize(App);

@@ -1,127 +1,170 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Form, FormGroup, Input, Label, Button, FormFeedback } from 'reactstrap';
+import {
+    Container,
+    Col,
+    Row,
+    Form,
+    FormGroup,
+    Input,
+    Label,
+    Button,
+    FormFeedback
+} from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import { required, isEmail, isUnique } from '../../Helper';
 
-const required = (value) => value.length > 0;
-const isEmail = (value) => /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
-const notIsUnique = (arrUsers, email) => !!arrUsers.find(user => user.email === email);
-
-class Registration extends Component {
+class Register extends Component {
     state = {
         fullName: {
             value: '',
             touched: false,
             isValid: false
         },
-        email: '',
-        password: '',
-    }
-    constructor(props) {
-        super(props);
-        this.handleOnSubmitReg = this.handleOnSubmitReg.bind(this);
-        this.handleOnSubmitChange = this.handleOnSubmitChange.bind(this);
+        email: {
+            value: '',
+            touched: false,
+            isValid: false,
+            message: 'Not Valid Email !'
+        },
+        password: {
+            value: '',
+            touched: false,
+            isValid: false
+        },
     }
 
-    handleOnSubmitChange(e) {
-        e.persist();  // vor eventnere chxarnven irar 
-        const { name, value, fullName } = e.target;
+    constructor(props) {
+        super(props);
+        this.handleOnChange = this.handleOnChange.bind(this);
+        this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    }
+
+    handleOnChange(e) {
+        e.persist();
+        const { name, value } = e.target;
         let isValid = true;
         if (name === 'fullName' || name === 'password') {
             isValid = required(value);
         } else if (name === 'email') {
-            isValid = (required(value) && isEmail(value));
+            isValid = (required(value) && isEmail(value))
         }
-        this.setState({
-            [e.target.name]: {
-                touched: true,
+        this.setState(prevState => {
+            return {
+                ...prevState,
+                [name]: {
+                    ...prevState[name],
+                    value,
+                    touched: true,
+                    isValid,
+                    message: 'Not Valid Email !'
+                }
             }
-        });
+        })
     }
 
-
-    handleOnSubmitReg(e) {
+    handleOnSubmit(e) {
         e.preventDefault();
-        const { email, password, fullName } = this.state;
+        const { fullName, email, password } = this.state;
         const { history } = this.props;
-        if (required(email) && (required(password) && required(fullName) && isEmail(email))) {
-            try {
-                let users = localStorage.getItem('users');
-                if (!users) {
-                    localStorage.setItem('users', JSON.stringify([]));
-                    users = localStorage.getItem('users');
-                }
-                users = JSON.parse(users);
-                if (!notIsUnique(users, email)) {
-                    users.push({ email, password })
-                    localStorage.setItem('users', JSON.stringify(users));
-                    history.push('/login')
-                }
-            } catch (e) {
-                console.log(e);
+        if (
+            required(fullName.value)
+            && (required(email.value) && isEmail(email.value))
+            && required(password.value)
+        ) {
+            let users = localStorage.getItem('users');
+            if (!users) {
+                localStorage.setItem('users', JSON.stringify([]));
+                users = localStorage.getItem('users');
             }
-        } else {
-
+            users = JSON.parse(users);
+            if (!isUnique(users, email.value)) {
+                users.push({ fullName: fullName.value, email: email.value, password: password.value });
+                localStorage.setItem('users', JSON.stringify(users));
+                history.push('/login')
+            } else {
+                this.setState(prevState => {
+                    return {
+                        ...prevState,
+                        email: {
+                            ...prevState.email,
+                            isValid: false,
+                            message: 'This email already exists !'
+                        }
+                    }
+                })
+            }
         }
-
     }
-
 
     render() {
-        const { email, password } = this.state;
-        // localStorage.clear();
+        const { fullName, email, password } = this.state;
         return (
             <Container>
                 <Row>
                     <Col md={{ size: 6, offset: 3 }}>
-                        <Form onSubmit={this.handleOnSubmitReg}>
+                        <Form onSubmit={this.handleOnSubmit}>
                             <FormGroup>
-                                <Label for="exampleFullName">Name</Label>
+                                <Label for="fullName">Full Name</Label>
                                 <Input
                                     type="text"
-                                    name="fullNmae"
-                                    id="exampleFullName"
-                                    placeholder="input your name"
-                                    onChange={this.handleOnSubmitChange}
-                                    value={email}
-                                    invalid={}
+                                    value={fullName.value}
+                                    onChange={this.handleOnChange}
+                                    name="fullName"
+                                    id="fullName"
+                                    invalid={fullName.touched && !fullName.isValid}
+                                    placeholder="Input your full name"
                                 />
                                 <FormFeedback>
-                                    full name is required
+                                    Full Name is required !
                                 </FormFeedback>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="exampleEmail">Email</Label>
+                                <Label for="email">Email</Label>
                                 <Input
                                     type="email"
+                                    value={email.value}
+                                    onChange={this.handleOnChange}
                                     name="email"
-                                    id="exampleEmail"
-                                    placeholder="input your email"
-                                    onChange={this.handleOnSubmitChange}
-                                    value={email}
+                                    invalid={email.touched && !email.isValid}
+                                    id="email"
+                                    placeholder="Input your email"
                                 />
                                 <FormFeedback>
-                                    email is required
+                                    {email.message}
                                 </FormFeedback>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="examplePassword">Password</Label>
+                                <Label for="password">Password</Label>
                                 <Input
                                     type="password"
+                                    value={password.value}
+                                    onChange={this.handleOnChange}
                                     name="password"
-                                    id="examplePassword"
+                                    id="password"
+                                    invalid={password.touched && !password.isValid}
                                     placeholder="input your password"
-                                    onChange={this.handleOnSubmitChange}
-                                    value={password}
                                 />
+                                <FormFeedback>
+                                    Password is required !
+                                </FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Button
-                                    type="submit"
                                     color="primary"
-                                    outline
-                                    onClick={this.handleOnNavigate}
+                                    type="submit"
+                                    disabled={
+                                        !fullName.isValid
+                                        || !email.isValid
+                                        || !password.isValid
+                                    }
                                 >
-                                    Registeration
+                                    Register
                                 </Button>
+                                <span
+                                    style={{ float: 'right' }}
+                                >
+                                    Already have account <NavLink to="/login">Login</NavLink>
+                                </span>
                             </FormGroup>
                         </Form>
                     </Col>
@@ -131,5 +174,4 @@ class Registration extends Component {
     }
 }
 
-
-export default Registration;
+export default Register;

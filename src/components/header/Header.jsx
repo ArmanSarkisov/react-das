@@ -1,9 +1,15 @@
 import React from 'react';
 import s from './Header.module.css'
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-
 const Header = (props) => {
+    function handleLogout(e) {
+        e.preventDefault();
+        localStorage.removeItem('user');
+        window.location.replace('/login');
+      }
+    
+    console.log(props);
     return (
         <header className={s.header}>
             <Container fluid>
@@ -23,6 +29,13 @@ const Header = (props) => {
                                 <li><NavLink to="/contact" activeClassName="active">contact</NavLink></li>
                             </ul>
                         </nav>
+                        <Button
+                            color="primary"
+                            type="submit"
+                            onClick={handleLogout}
+                        >
+                            Log out
+                         </Button>
                     </Col>
                 </Row>
             </Container>
