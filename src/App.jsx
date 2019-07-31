@@ -17,6 +17,8 @@ import About from './components/about/About';
 import withMobileSize from './withMobileSize';
 import PrivateRoute from './PrivateRoute';
 import User from './components/user/User';
+import Posts from './components/posts/Posts';
+import Post from './components/posts/post/Post';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -53,6 +55,8 @@ class App extends React.Component {
                 <PrivateRoute component={About} path="/about" />
                 <PrivateRoute component={Contact} path="/contact" />
                 <PrivateRoute component={User} path="/user/:id" />
+                <PrivateRoute component={Posts} path="/posts" />
+                <PrivateRoute component={Post} path="/post/:id" />
                 <Redirect from="*" to="/" />
               </Switch>
             </Web>
