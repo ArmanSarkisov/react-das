@@ -3,15 +3,18 @@ import { Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import * as aboutActions from '../store/about/actions';
+
 class About extends Component {
     state = {
         posts: []
     }
+
     componentDidMount() {
         fetch('https://jsonplaceholder.typicode.com/posts')
         .then(response => response.json())
         .then(posts => {
-            this.setState({ posts })
+            this.props.onSetPosts(posts)
         })
     }
     render() {
@@ -27,7 +30,7 @@ class About extends Component {
                     </thead>
                     <tbody>
                         {
-                            this.state.posts.map(post => (
+                            this.props.posts.map(post => (
                                 <tr key={post.id}>
                                     <td>{post.id}</td>
                                     <td>{post.title}</td>
@@ -47,8 +50,14 @@ class About extends Component {
 
 function stateToProps(state) {
     return {
-        ...state
+        posts: state.about.posts
     }
 }
 
-export default connect(stateToProps)(About);
+function dispatchToProps(dispatch) {
+    return {
+        onSetPosts: (posts) => dispatch(aboutActions.setPosts(posts)),
+    }
+}
+
+export default connect(stateToProps, dispatchToProps)(About);
