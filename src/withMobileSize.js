@@ -6,7 +6,7 @@ function withMobileSize(Component) {
             width: window.innerWidth,
             height: window.innerHeight
         }
-
+        
         constructor(props) {
             super(props);
             this.handleWidowResize = this.handleWidowResize.bind(this);
@@ -26,6 +26,7 @@ function withMobileSize(Component) {
                 height: window.innerHeight
             })
         }
+
         render() {
             return (
                 <Component {...this.props} {...this.state} />

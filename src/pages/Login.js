@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Form, FormGroup, Input, Label, Button } from 'reactstrap';
-import { required, isEmail } from '../../Helper';
+import {
+    Container,
+    Col,
+    Row,
+    Form,
+    FormGroup,
+    Input,
+    Label,
+    Button,
+    FormFeedback,
+} from 'reactstrap';
 
+import { required, isEmail } from '../helpers';
 
 class Login extends Component {
     state = {
@@ -58,25 +68,25 @@ class Login extends Component {
         const { history } = this.props;
         const users = JSON.parse(localStorage.getItem('users'));
         const user = users.find(user => user.email === email.value && user.password === password.value);
-        localStorage.setItem('user', JSON.stringify(user));
-        if (user) {
+        if(user) {
+            localStorage.setItem('user', JSON.stringify(user));
             history.replace('/');
         } else {
             this.setState(prevState => {
                 return {
                     ...prevState,
                     email: {
-                        ...prevState,
-                        message: "invalid email !"
+                        ...prevState.email,
+                        isValid: false,
+                        message: "Invalid Email or password"
                     },
                     password: {
-                        touched: true,
-                        // touched: false,
+                        value: '',
+                        touched: false,
                         isValid: false
                     }
                 }
             })
-
         }
     }
 
@@ -98,6 +108,9 @@ class Login extends Component {
                                     invalid={email.touched && !email.isValid}
                                     placeholder="input your email"
                                 />
+                                <FormFeedback>
+                                    {email.message}
+                                </FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="examplePassword">Password</Label>
@@ -110,6 +123,9 @@ class Login extends Component {
                                     invalid={password.touched && !password.isValid}
                                     placeholder="input your password"
                                 />
+                                <FormFeedback>
+                                    Password is required !
+                                </FormFeedback>
                             </FormGroup>
                             <FormGroup>
                                 <Button color="primary" type="submit">

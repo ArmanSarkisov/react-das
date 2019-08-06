@@ -11,7 +11,7 @@ import {
     FormFeedback
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import { required, isEmail, isUnique } from '../../Helper';
+import { required, isEmail, isUnique } from '../helpers';
 
 class Register extends Component {
     state = {

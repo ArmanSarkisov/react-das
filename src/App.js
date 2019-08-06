@@ -1,28 +1,27 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Switch, Route, Redirect
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
 } from 'react-router-dom';
 
 import Web from './versions/Web';
-// import Tablet from './versions/Tablet';
-// import Mobile from './versions/Mobile';
 
-import Registration from './pages/registration/Registration';
-import Login from './pages/login/Login';
+import About from './pages/About';
+import Home from './pages/Home';
+import Contact from './pages/Contact';
+import User from './pages/User';
+import Post from './pages/Post';
 
-import Content from './components/content/Content';
-import Contact from './components/contact/Contact';
-import About from './components/about/About';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 import withMobileSize from './withMobileSize';
 import PrivateRoute from './PrivateRoute';
-import User from './components/user/User';
-import Posts from './components/posts/Posts';
-import Post from './components/posts/post/Post';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-
 
 class App extends React.Component {
   state = {
@@ -49,14 +48,13 @@ class App extends React.Component {
             >
               <Switch>
                 <Route component={Login} path="/login" />
-                <Route component={Registration} path="/register" />
+                <Route component={Register} path="/register" />
 
-                <PrivateRoute exact component={Content} path="/" />
+                <PrivateRoute exact component={Home} path="/" />
+                <PrivateRoute component={User} path="/user/:id" />
+                <PrivateRoute component={Post} path="/post/:id" />
                 <PrivateRoute component={About} path="/about" />
                 <PrivateRoute component={Contact} path="/contact" />
-                <PrivateRoute component={User} path="/user/:id" />
-                <PrivateRoute component={Posts} path="/posts" />
-                <PrivateRoute component={Post} path="/post/:id" />
                 <Redirect from="*" to="/" />
               </Switch>
             </Web>
@@ -72,7 +70,6 @@ class App extends React.Component {
       </Router>
     )
   }
-
 }
 
 export default withMobileSize(App);
