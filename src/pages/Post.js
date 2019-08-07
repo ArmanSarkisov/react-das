@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as postActions from '../store/posts/action';
+
 
 class Post extends Component {
     state = {
@@ -13,11 +16,12 @@ class Post extends Component {
         fetch(`https://jsonplaceholder.typicode.com/posts/${this.props.match.params.id}`)
             .then(response => response.json())
             .then(post => {
-                this.setState({ post })
+                this.props.onSetPost({ post })
             })
     }
 
     render() {
+        console.log(this.props);
         return (
             <Row>
                 <Col md="4">
@@ -27,7 +31,7 @@ class Post extends Component {
                     {this.state.post.body}
                 </Col>
                 <Col md="4">
-                    <NavLink to={`/user/${this.state.post.userId}`}>
+                    <NavLink to={`/post/${this.props.post.id}`}>
                         Load owner
                     </NavLink>
                 </Col>
@@ -36,4 +40,16 @@ class Post extends Component {
     }
 }
 
-export default Post;
+function stateToProps(state) {
+    return {
+        users: state.post.post
+    }
+}
+
+function dispatchToProps(dispatch) {
+    return {
+        onSetPost: (post) => dispatch(postActions.setPost(post)),
+    }
+}
+
+export default connect(stateToProps, dispatchToProps)(Post);
