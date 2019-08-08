@@ -1,7 +1,8 @@
 import { types } from './actions';
 
 const initialState = {
-    posts: []
+    posts: [],
+    post: {},
 }
 
 export default (state = initialState, action = {}) => {
@@ -10,6 +11,11 @@ export default (state = initialState, action = {}) => {
             return {
                 ...state,
                 posts: [...action.payload.posts],
+            };
+        case types.SET_FETCHED_POST:
+            return {
+                ...state,
+                post: {...action.payload.post},
             };
         default:
             return state;
