@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'; 
 
 import * as homeActions from '../store/home/actions';
 
 class User extends Component {
-    state = {
-        user: {
-
-        }
-    }
-
     componentDidMount() {
         fetch(`https://jsonplaceholder.typicode.com/users/${this.props.match.params.id}`)
             .then(response => response.json())
@@ -33,17 +27,15 @@ class User extends Component {
     }
 }
 
-
-
 function stateToProps(state) {
     return {
-        user: state.home.user
+        user: state.home.user,
     }
 }
 
 function dispatchToProps(dispatch) {
     return {
-        onSetUser: (user) => dispatch(homeActions.setUser(user)),
+        onSetUser: user => dispatch(homeActions.setUser(user))
     }
 }
 

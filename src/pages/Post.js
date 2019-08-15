@@ -2,34 +2,34 @@ import React, { Component } from 'react';
 import { Row, Col } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import * as postActions from '../store/about/actions';
-
+import Loader from '../components/Loader';
+import * as aboutActions from '../store/about/actions';
 
 class Post extends Component {
-   
-
     componentDidMount() {
-        fetch(`https://jsonplaceholder.typicode.com/posts/${this.props.match.params.id}`)
-            .then(response => response.json())
-            .then(post => {
-                this.props.onSetPost(post)
-            })
+        this.props.onFetchPost(this.props.match.params.id);
     }
 
     render() {
-        console.log(this.props);
+        if(this.props.isLoading) {
+            return <Loader />
+        }
         return (
             <Row>
-                <Col md="4">
+                <Col md="3">
                     {this.props.post.title}
                 </Col>
-                <Col md="4">
+                <Col md="3">
                     {this.props.post.body}
                 </Col>
-                <Col md="4">
+                <Col md="3">
                     <NavLink to={`/user/${this.props.post.userId}`}>
                         Load owner
+                    </NavLink>
+                </Col>
+                <Col md="3">
+                    <NavLink to={`/contact/${this.props.post.id}`}>
+                        Load comments
                     </NavLink>
                 </Col>
             </Row>
@@ -39,13 +39,14 @@ class Post extends Component {
 
 function stateToProps(state) {
     return {
-        post: state.about.post
+        post: state.about.post,
+        isLoading: state.ui.loading
     }
 }
 
 function dispatchToProps(dispatch) {
     return {
-        onSetPost: (post) => dispatch(postActions.setPost(post)),
+        onFetchPost: (id) => dispatch(aboutActions.fetchPost(id))
     }
 }
 

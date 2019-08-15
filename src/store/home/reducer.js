@@ -12,7 +12,6 @@ export default (state = initialState, action = {}) => {
                 ...state,
                 users: [...action.payload.users],
             };
-            
         case types.SET_FETCHED_USER:
             return {
                 ...state,

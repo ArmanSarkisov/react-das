@@ -3,22 +3,21 @@ import { Table } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import Loader from '../components/Loader';
+
 import * as aboutActions from '../store/about/actions';
 
 class About extends Component {
     state = {
         posts: []
     }
-
     componentDidMount() {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
-        .then(posts => {
-            this.props.onSetPosts(posts)
-        })
+        this.props.onFetchPosts()
     }
     render() {
-        console.log(this.props);
+        if(this.props.isLoading) {
+            return <Loader />
+        }
         return (
             <Table responsive>
                     <thead>
@@ -50,13 +49,14 @@ class About extends Component {
 
 function stateToProps(state) {
     return {
-        posts: state.about.posts
+        posts: state.about.posts,
+        isLoading: state.ui.loading
     }
 }
 
 function dispatchToProps(dispatch) {
     return {
-        onSetPosts: (posts) => dispatch(aboutActions.setPosts(posts)),
+        onFetchPosts: (posts) => dispatch(aboutActions.fetchPosts(posts))
     }
 }
 
