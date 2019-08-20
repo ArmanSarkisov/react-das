@@ -1,5 +1,4 @@
 import { startLoading, stopLoading } from '../ui/actions';
-import { async } from 'q';
 
 const loaderMiddlewear = store => next => async (action) => {
     const nextAction = next(action);
@@ -12,8 +11,8 @@ const loaderMiddlewear = store => next => async (action) => {
         toggleLoading(true);
         return (async () => {
             try {
-                // const 
-                toggleLoading(false);
+                const response = await nextAction;
+                toggleLoading(response);
                 return await nextAction;
             } catch (e) {
                 toggleLoading(false);
